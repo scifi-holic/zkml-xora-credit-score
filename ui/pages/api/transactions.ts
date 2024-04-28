@@ -3,9 +3,6 @@ import type { NextApiRequest, NextApiResponse } from "next";
 
 // Setup: npm install alchemy-sdk
 import { Alchemy, AssetTransfersCategory, Network } from "alchemy-sdk";
-import QuickNode from '@quicknode/sdk';
-// if you are using ESM style imports, use this line instead:
-// import QuickNode from '@quicknode/sdk';
 
 const get_from_transactions = async (address: string) => {
 
@@ -14,18 +11,6 @@ const get_from_transactions = async (address: string) => {
 };
 
 const get_to_transactions = async (address: string) => {
-  // const config = {
-  //   apiKey: process.env.ALCHEMY_API_KEY,
-  //   network: Network.MATIC_MUMBAI,
-  // };
-  // const alchemy = new Alchemy(config);
-
-  // const data = await alchemy.core.getAssetTransfers({
-  //   fromBlock: "0x0",
-  //   toAddress: address,
-  //   category: [AssetTransfersCategory.EXTERNAL],
-  // });
-  // console.log(data);
   const data: never[] = [];
   return data;
 };
