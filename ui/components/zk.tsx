@@ -83,7 +83,7 @@ const ZK = (props: any) => {
     console.log(loanState);
     dispatch({ type: "analysis", isAnalyzing: true });
     try {
-      await info("Computing proof of balance for Scroll...");
+      await info("Predict Credit Score using ZKML...");
 
       console.log("Start prediction");
       // Make sure to provide your actual API key here.
