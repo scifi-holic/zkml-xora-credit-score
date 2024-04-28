@@ -6,7 +6,7 @@ export const CTA: FC = () => {
   return (
     <div className="flex justify-center flex-col pt-20 w-full">
       <p className="font-bold text-3xl text-center text-gray-700 break-words lg:px-32 pt-7">
-        Hello
+        Vision: Our vision is to make unsecured credit lending possible in the blockchain realm.
       </p>
       {state.wallet ? (
         <div className="flex justify-center py-10 flex-row space-x-3">
