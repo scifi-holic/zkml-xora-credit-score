@@ -15,7 +15,6 @@
     "@emotion/styled": "^11.10.6",
     "@mui/material": "^5.12.2",
     "@mui/x-data-grid": "^6.3.0",
-    "@quicknode/sdk": "^2.2.2",
     "@tensorflow/tfjs": "^4.4.0",
     "alchemy-sdk": "^2.8.1",
     "defender-relay-client": "^1.38.0",
