@@ -37,8 +37,9 @@ contract XoraCreditScore is Ownable {
 
         // LINK-ETH (ERC20)
         priceFeedLinkEth = AggregatorV3Interface(0xdC97CA0F3521c7F271555175314b812816ed125B);
+
         // LINK Scroll Testnet (0x7273ebbB21F8D8AcF2bC12E71a08937712E9E40c)
-        erc20TokenAddress = 0x7273ebbB21F8D8AcF2bC12E71a08937712E9E40c;
+        erc20TokenAddress = 0x231d45b53C905c3d6201318156BDC725c9c3B9B1;
     }
 
     /**
