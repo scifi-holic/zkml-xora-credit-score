@@ -1,11 +1,10 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useFormik } from "formik";
 import * as yup from "yup";
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { useLoan } from "../../hooks/useLoan";
 import { Box, Checkbox, FormControlLabel } from "@mui/material";
-import axios from "axios";
 import { useMetamask } from "../../hooks/useMetamask";
 
 const validationSchema = yup.object({
@@ -14,7 +13,7 @@ const validationSchema = yup.object({
 export default function HistoryForm(props: any) {
   const { dispatch, state } = useLoan();
   const { nextPage, prevPage, activeStep, steps } = props;
-
+  const [ creditScoreInput, setCreditScoreInput ] = useState();
   const {
     state: { status, isMetamaskInstalled, wallet, balance },
   } = useMetamask();
@@ -24,6 +23,59 @@ export default function HistoryForm(props: any) {
     balanceInt = parseInt(balance);
   }
   state.mortdue = Math.round((balanceInt / 100000000000000))/10000;
+
+  const getCreditScoreInputRequest = async (wallet: string) => {
+    const creditScoreInputRes = await fetch("/api/getCreditScoreInput", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userAddress: wallet,
+      }),
+    });
+    return await creditScoreInputRes.json();
+  };
+
+  useEffect(() => {
+
+    async function fetchAndSetUser(wallet: string) {
+      const creditScoreInputRes = await getCreditScoreInputRequest(wallet);
+      setCreditScoreInput(creditScoreInputRes);
+      const input1 = parseInt(creditScoreInputRes["creditScoreInput"][0]["hex"]) / Math.pow(10, 18);
+      // state.mortdue = input1;
+      formik.values.mortgage = input1;
+      console.log("input1", input1);
+
+      const input2 = parseInt(creditScoreInputRes["creditScoreInput"][1]["hex"]) / Math.pow(10, 18+8);
+      // state.mortdue = input1;
+      formik.values.patrimony = input2;
+      console.log("input2", input2);
+
+      const input3 = parseInt(creditScoreInputRes["creditScoreInput"][2]["hex"]) / Math.pow(10, 18);
+      // state.mortdue = input1;
+      formik.values.age = input3;
+      console.log("input3", input3);
+
+      const input4 = parseInt(creditScoreInputRes["creditScoreInput"][3]["hex"]) / Math.pow(10, 18);
+      // state.mortdue = input1;
+      formik.values.family = input4;
+      console.log("input4", input4);
+
+      const input5 = parseInt(creditScoreInputRes["creditScoreInput"][4]["hex"]);
+      // state.mortdue = input1;
+      formik.values.income = input5;
+      console.log("input5", input5);
+
+      const input6 = parseInt(creditScoreInputRes["creditScoreInput"][5]["hex"]);
+      // state.mortdue = input1;
+      formik.values.zip = input6;
+      console.log("input6", input6);
+    }
+    if (wallet) {
+      fetchAndSetUser(wallet);
+    }
+  }, [wallet]);
 
   const formik = useFormik({
     initialValues: {
@@ -80,7 +132,7 @@ export default function HistoryForm(props: any) {
             fullWidth
             id="mortgage"
             name="mortgage"
-            label="ETH Balance"
+            label="ETH Balance (ETH)"
             type="number"
             value={formik.values.mortgage}
             onChange={formik.handleChange}
@@ -92,34 +144,37 @@ export default function HistoryForm(props: any) {
             fullWidth
             id="patrimony"
             name="patrimony"
-            label="Wallet Age"
+            label="ETH Balance (USD)"
             type="number"
             value={formik.values.patrimony}
             onChange={formik.handleChange}
             error={formik.touched.patrimony && Boolean(formik.errors.patrimony)}
             helperText={formik.touched.patrimony && formik.errors.patrimony}
+            disabled={true}
           />
           <TextField
             fullWidth
             id="age"
             name="age"
-            label="Age"
+            label="ERC20 Balance (ETH)"
             type="number"
             value={formik.values.age}
             onChange={formik.handleChange}
             error={formik.touched.age && Boolean(formik.errors.age)}
             helperText={formik.touched.age && formik.errors.age}
+            disabled={true}
           />
           <TextField
             fullWidth
             id="family"
             name="family"
-            label="# of family members"
+            label="ERC20 Balance (USD)"
             type="number"
             value={formik.values.family}
             onChange={formik.handleChange}
             error={formik.touched.family && Boolean(formik.errors.family)}
             helperText={formik.touched.family && formik.errors.family}
+            disabled={true}
           />
           <TextField
             fullWidth
@@ -131,6 +186,7 @@ export default function HistoryForm(props: any) {
             onChange={formik.handleChange}
             error={formik.touched.income && Boolean(formik.errors.income)}
             helperText={formik.touched.income && formik.errors.income}
+            disabled={true}
           />
           <TextField
             fullWidth
@@ -142,6 +198,7 @@ export default function HistoryForm(props: any) {
             onChange={formik.handleChange}
             error={formik.touched.zip && Boolean(formik.errors.zip)}
             helperText={formik.touched.zip && formik.errors.zip}
+            disabled={true}
           />
           
         </div>
