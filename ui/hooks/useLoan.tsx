@@ -86,6 +86,7 @@ export const initialState: State = {
   score: 0.0,
   creditScore: 0,
   creditScoreProof: "",
+  patrimony: 0,
 };
 
 export type State = {
@@ -118,6 +119,7 @@ export type State = {
   score: number;
   creditScore: number;
   creditScoreProof: string;
+  patrimony: number;
 };
 
 function loanReducer(state: State, action: Action): State {

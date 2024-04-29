@@ -176,7 +176,7 @@ export default function HistoryForm(props: any) {
             fullWidth
             id="income"
             name="income"
-            label="yearly income in USD"
+            label="yearly income (ETH)"
             type="number"
             value={formik.values.income}
             onChange={formik.handleChange}
@@ -188,7 +188,7 @@ export default function HistoryForm(props: any) {
             fullWidth
             id="zip"
             name="zip"
-            label="zip"
+            label="yearly income (USD)"
             type="number"
             value={formik.values.zip}
             onChange={formik.handleChange}

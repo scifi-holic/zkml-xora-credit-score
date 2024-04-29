@@ -95,10 +95,10 @@ const ZK = (props: any) => {
       // Authorize all future requests with an `Authorization` header.
       axios.defaults.headers.common["Authorization"] = `Bearer ${SINDRI_API_KEY}`;
   
-      const { income, age, mortdue } = loanState;
+      const { income, age, mortdue, patrimony, family, zip } = loanState;
       const ethBalance = Math.round(mortdue * 10000);
       // Generate a new proof and poll for completion.
-      const proofInput = `inputs = [${income}, ${age}, ${ethBalance}, 33, 22, 444]`;
+      const proofInput = `inputs = [${ethBalance}, ${patrimony}, ${age}, ${family}, ${income}, ${zip}]`;
       console.log("proofInput: ", proofInput);
       const proveResponse = await axios.post(`/circuit/${circuitId}/prove`, {
         proof_input: proofInput,
