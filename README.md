@@ -17,7 +17,14 @@ Key features include:
 Users can review their credit score calculation history on the website.
 Third-party dApps can verify a specific user's credit score through smart contracts.
 Subgraph indexing credit score history
-Demo website https://zkml-xora-credit-score.vercel.app/
+
+## Demo website
+
+https://zkml-xora-credit-score.vercel.app/
+
+## Demo video
+
+[![Everything Is AWESOME](https://img.youtube.com/vi/HrP-biECeAA/0.jpg)](https://www.youtube.com/watch?v=HrP-biECeAA "Everything Is AWESOME")
 
 ## Deployed Smart Contract
 
