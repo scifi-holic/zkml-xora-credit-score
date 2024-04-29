@@ -32,7 +32,6 @@ export default function HistoryForm(props: any) {
   };
 
   useEffect(() => {
-
     async function fetchAndSetUser(wallet: string) {
       const creditScoreInputRes = await getCreditScoreInputRequest(wallet);
       setCreditScoreInput(creditScoreInputRes);
@@ -66,9 +65,12 @@ export default function HistoryForm(props: any) {
       formik.values.zip = input6;
       console.log("input6", input6);
     }
-    if (wallet) {
-      fetchAndSetUser(wallet);
+    if(creditScoreInput == undefined){
+      if (wallet) {
+        fetchAndSetUser(wallet);
+      }
     }
+    
   }, []);
 
   const formik = useFormik({
