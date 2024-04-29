@@ -18,12 +18,6 @@ export default function HistoryForm(props: any) {
     state: { status, isMetamaskInstalled, wallet, balance },
   } = useMetamask();
   
-  let balanceInt = 0;
-  if (typeof(balance) == 'string'){
-    balanceInt = parseInt(balance);
-  }
-  state.mortdue = Math.round((balanceInt / 100000000000000))/10000;
-
   const getCreditScoreInputRequest = async (wallet: string) => {
     const creditScoreInputRes = await fetch("/api/getCreditScoreInput", {
       method: "POST",
@@ -75,12 +69,12 @@ export default function HistoryForm(props: any) {
     if (wallet) {
       fetchAndSetUser(wallet);
     }
-  }, [wallet]);
+  }, []);
 
   const formik = useFormik({
     initialValues: {
       mortgage: state.mortdue ? state.mortdue : 0,
-      patrimony: state.value ? state.value : 1000.0,
+      patrimony: state.value ? state.value : 0.0,
       age: state.age ? state.age : 0,
       zip: state.zip ? state.zip : undefined,
       family: state.family ? state.family : 0,

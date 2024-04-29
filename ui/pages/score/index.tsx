@@ -28,7 +28,7 @@ const columns: GridColDef[] = [
 ];
 
 const MyScoresPage = () => {
-  const [userLoanRequests, setUserLoanRequests] = useState([]);
+  const [creditScoreHistory, setCreditScoreHistory] = useState([]);
   const { dispatch, state } = useMetamask();
   const { dispatch: dispatchLoan } = useLoan();
   const listen = useListen();
@@ -39,7 +39,7 @@ const MyScoresPage = () => {
       method: "POST",
       body: JSON.stringify({ userAddress: state.wallet }),
     }).then((res) => res.json()).then((res) => {
-      setUserLoanRequests(res.userLoanRequests);
+      setCreditScoreHistory(res.userLoanRequests);
     })
   }, [state])
 
@@ -53,7 +53,7 @@ const MyScoresPage = () => {
       return Math.round(number * factor) / factor;
     };
 
-    const rows = userLoanRequests
+    const rows = creditScoreHistory
       .filter(
         (loanRequest: any) =>
           round(ethers.BigNumber.from(loanRequest[2]).toNumber(), 2) > 0

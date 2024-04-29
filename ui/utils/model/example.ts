@@ -22,7 +22,7 @@ export const rejectedPayload = {
   experience: 2,
   income: 1111111,
   education: "Bachelor",
-  ccavg: 100000,
+  ccavg: 0,
   cdAccount: true,
 };
 
