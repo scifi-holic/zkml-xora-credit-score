@@ -41,3 +41,4 @@ This is the time to get familiar with how to work with a Next.js application and
 ### 5. Cleaning Up:
 
 - removing event listeners if people disconnect
+
