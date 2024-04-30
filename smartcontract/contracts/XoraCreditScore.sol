@@ -30,6 +30,9 @@ contract XoraCreditScore is Ownable {
     AggregatorV3Interface internal immutable priceFeedLinkEth;
     address erc20TokenAddress;
 
+    mapping (address=>uint256) monthlyIncomeETH;
+
+
     constructor() {
         
         // ETH-USD
@@ -79,9 +82,8 @@ contract XoraCreditScore is Ownable {
         uint256 balanceUSD = balanceETH * uint256(getLatestPriceEthUsd());
         uint256 erc20BalanceETH = IERC20(erc20TokenAddress).balanceOf(address(requester)) * uint256(getLatestPriceLinkEth());
         uint256 erc20BalanceUSD = erc20BalanceETH * uint256(getLatestPriceEthUsd());
-        uint256 monthlyIncomeETH = 123;
-        uint256 monthlyIncomeUSD = 456;
-        CreditScoreInput memory item = CreditScoreInput(balanceETH, balanceUSD, erc20BalanceETH, erc20BalanceUSD, monthlyIncomeETH, monthlyIncomeUSD);
+        uint256 monthlyIncomeUSD = monthlyIncomeETH[requester] * uint256(getLatestPriceEthUsd());
+        CreditScoreInput memory item = CreditScoreInput(balanceETH, balanceUSD, erc20BalanceETH, erc20BalanceUSD, monthlyIncomeETH[requester], monthlyIncomeUSD);
         addressToInputMap[requester] = item;
         return item;
     }
@@ -94,7 +96,17 @@ contract XoraCreditScore is Ownable {
         return verification;
     }
 
+    function setMonthlyIncomeETH(address requester, uint256 amount) public {
+        monthlyIncomeETH[requester] = amount;
+    }
+
     function getCreditScoreInput(address requester) public view returns (CreditScoreInput memory) {
-        return addressToInputMap[requester];
+        uint256 balanceETH = payable(address(requester)).balance;
+        uint256 balanceUSD = balanceETH * uint256(getLatestPriceEthUsd());
+        uint256 erc20BalanceETH = IERC20(erc20TokenAddress).balanceOf(address(requester)) * uint256(getLatestPriceLinkEth());
+        uint256 erc20BalanceUSD = erc20BalanceETH * uint256(getLatestPriceEthUsd());
+        uint256 monthlyIncomeUSD = monthlyIncomeETH[requester] * uint256(getLatestPriceEthUsd());
+        CreditScoreInput memory item = CreditScoreInput(balanceETH, balanceUSD, erc20BalanceETH, erc20BalanceUSD, monthlyIncomeETH[requester], monthlyIncomeUSD);
+        return item;
     }
 }

@@ -45,7 +45,7 @@ export default function HistoryForm(props: any) {
       formik.values.patrimony = input2;
       console.log("input2", input2);
 
-      const input3 = parseInt(creditScoreInputRes["creditScoreInput"][2]["hex"]) / Math.pow(10, 18);
+      const input3 = parseInt(creditScoreInputRes["creditScoreInput"][2]["hex"]) / Math.pow(10, 18) / Math.pow(10, 18);
       // state.mortdue = input1;
       formik.values.age = input3;
       console.log("input3", input3);
@@ -55,12 +55,12 @@ export default function HistoryForm(props: any) {
       formik.values.family = input4;
       console.log("input4", input4);
 
-      const input5 = parseInt(creditScoreInputRes["creditScoreInput"][4]["hex"]);
+      const input5 = parseInt(creditScoreInputRes["creditScoreInput"][4]["hex"]) / Math.pow(10, 18);
       // state.mortdue = input1;
       formik.values.income = input5;
       console.log("input5", input5);
 
-      const input6 = parseInt(creditScoreInputRes["creditScoreInput"][5]["hex"]);
+      const input6 = parseInt(creditScoreInputRes["creditScoreInput"][5]["hex"]) / Math.pow(10, 18+8);
       // state.mortdue = input1;
       formik.values.zip = input6;
       console.log("input6", input6);
@@ -148,6 +148,9 @@ export default function HistoryForm(props: any) {
             helperText={formik.touched.patrimony && formik.errors.patrimony}
             disabled={true}
           />
+          <p className="text-left pt-6 bold" id="reason-label">
+          ERC20 Balance (ETH)
+          </p>
           <TextField
             fullWidth
             id="age"
@@ -160,6 +163,9 @@ export default function HistoryForm(props: any) {
             helperText={formik.touched.age && formik.errors.age}
             disabled={true}
           />
+          <p className="text-left pt-6 bold" id="reason-label">
+          ERC20 Balance (USD)
+          </p>
           <TextField
             fullWidth
             id="family"
@@ -172,11 +178,13 @@ export default function HistoryForm(props: any) {
             helperText={formik.touched.family && formik.errors.family}
             disabled={true}
           />
+          <p className="text-left pt-6 bold" id="reason-label">
+          Yearly Income (ETH)
+          </p>
           <TextField
             fullWidth
             id="income"
             name="income"
-            label="yearly income (ETH)"
             type="number"
             value={formik.values.income}
             onChange={formik.handleChange}
@@ -184,11 +192,13 @@ export default function HistoryForm(props: any) {
             helperText={formik.touched.income && formik.errors.income}
             disabled={true}
           />
+          <p className="text-left  bold" id="reason-label">
+          Yearly Income (USD)
+          </p>
           <TextField
             fullWidth
             id="zip"
             name="zip"
-            label="yearly income (USD)"
             type="number"
             value={formik.values.zip}
             onChange={formik.handleChange}
