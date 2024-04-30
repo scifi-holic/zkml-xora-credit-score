@@ -50,7 +50,7 @@ export default function HistoryForm(props: any) {
       formik.values.age = input3;
       console.log("input3", input3);
 
-      const input4 = parseInt(creditScoreInputRes["creditScoreInput"][3]["hex"]) / Math.pow(10, 18);
+      const input4 = parseInt(creditScoreInputRes["creditScoreInput"][3]["hex"]) / Math.pow(10, 18) / Math.pow(10, 18+8);
       // state.mortdue = input1;
       formik.values.family = input4;
       console.log("input4", input4);
@@ -124,6 +124,9 @@ export default function HistoryForm(props: any) {
     <form className="h-full" onSubmit={formik.handleSubmit}>
       <div className="flex flex-col space-y-10 justify-between  max-w-[600px] pt-10 h-full">
         <div className="flex flex-col space-y-5 min-h-[650px] w-full">
+          <p className="text-left pt-6 bold" id="reason-label">
+          ETH Balance(ETH)
+          </p>
           <TextField
             fullWidth
             id="mortgage"
@@ -136,6 +139,9 @@ export default function HistoryForm(props: any) {
             helperText={formik.touched.mortgage && formik.errors.mortgage}
             disabled={true}
           />
+          <p className="text-left pt-6 bold" id="reason-label">
+          ETH Balance(USD)
+          </p>
           <TextField
             fullWidth
             id="patrimony"
